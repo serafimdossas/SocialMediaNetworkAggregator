@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SocialMediaNetworkAggregator</string>
+    <string name="com.twitter.sdk.android.TWITTER_CONSUMER_KEY">BS1hJK04QKLT61t6kWmo1UW4P</string>
+    <string name="com.twitter.sdk.android.TWITTER_CONSUMER_SECRET">r9Lp9mIogaVvEBpjBx2grYFEwSm8oKrHKszFaxQMwUtHh7GkAv</string>
+</resources>
