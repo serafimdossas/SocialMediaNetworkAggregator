@@ -27,5 +27,25 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+        postButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                Intent i = new Intent(HomePage.this, PostActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+        storyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                Intent i = new Intent(HomePage.this, StoryActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+
+
     }
 }
