@@ -42,7 +42,7 @@ public class FacebookMainActivity extends AppCompatActivity {
 
         facebookLoginButton = findViewById(R.id.facebookButton);
         textView = findViewById(R.id.tv_name);
-        imageView = findViewById(R.id.iv_profilePic);
+        //imageView = findViewById(R.id.iv_profilePic);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -91,8 +91,8 @@ public class FacebookMainActivity extends AppCompatActivity {
                             String id = object.getString("id");
 
                             textView.setText(name);
-                            Picasso.get().load("https://graph.facebook.com/" + id + "/picture/")
-                                    .into(imageView);
+                            //Picasso.get().load("https://graph.facebook.com/" + id + "/picture/")
+                              //      .into(imageView);
 
 
                         } catch (JSONException e) {
@@ -115,7 +115,7 @@ public class FacebookMainActivity extends AppCompatActivity {
             if (currentAccessToken == null){
                 LoginManager.getInstance().logOut();
                 textView.setText("");
-                imageView.setImageResource(0);
+                //imageView.setImageResource(0);
             }
         }
     };
