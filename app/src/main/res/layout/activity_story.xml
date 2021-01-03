@@ -6,4 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".StoryActivity">
 
+    <EditText
+        android:id="@+id/editPostText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/postButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corners"
+        android:text=" Post it! "
+        app:layout_constraintEnd_toEndOf="@+id/editPostText"
+        app:layout_constraintTop_toBottomOf="@+id/instagramCheckBox" />
+
+    <CheckBox
+        android:id="@+id/facebookCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Facebook"
+        app:layout_constraintStart_toStartOf="@+id/editPostText"
+        app:layout_constraintTop_toBottomOf="@+id/editPostText"
+        android:onClick="onFacebookClicked"/>
+
+    <CheckBox
+        android:id="@+id/twitterCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Twitter"
+        app:layout_constraintStart_toStartOf="@+id/facebookCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/facebookCheckBox"
+        android:onClick="onTwitterClicked"/>
+
+    <CheckBox
+        android:id="@+id/instagramCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Instagram"
+        app:layout_constraintStart_toStartOf="@+id/twitterCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/twitterCheckBox"
+        android:onClick="onInstagramClicked" />
+
+    <TextView
+        android:id="@+id/postTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="Write something!?"
+        app:layout_constraintStart_toStartOf="@+id/editPostText"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

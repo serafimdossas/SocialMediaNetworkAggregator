@@ -3,7 +3,9 @@ package com.example.socialmedianetworkaggregator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
+
+import java.io.File;
 
 import twitter4j.Status;
 import twitter4j.Trend;
@@ -223,6 +227,14 @@ public class PostActivity extends AppCompatActivity {
                 else if (instagramFlag){
                     Toast.makeText(PostActivity.this,
                             "Only Instagram Checked", Toast.LENGTH_LONG).show();
+
+
+                    String type = "image/*";
+                    String filename = "/download.png";
+                    String mediaPath = Environment.getExternalStorageDirectory() + filename;
+
+                    createInstagramIntent(type, mediaPath);
+
                 }
                 else{
                     Toast.makeText(PostActivity.this,
@@ -264,5 +276,24 @@ public class PostActivity extends AppCompatActivity {
         if (!checkBox.isChecked()){
             instagramFlag = false;
         }
+    }
+
+    public void createInstagramIntent(String type, String mediaPath){
+
+        // Create the new Intent using the 'Send' action.
+        Intent share = new Intent(Intent.ACTION_SEND);
+
+        // Set the MIME type
+        share.setType(type);
+
+        // Create the URI from the media
+        File media = new File(mediaPath);
+        Uri uri = Uri.fromFile(media);
+
+        // Add the URI to the Intent.
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+
+        // Broadcast the Intent.
+        startActivity(Intent.createChooser(share, "Share to"));
     }
 }
