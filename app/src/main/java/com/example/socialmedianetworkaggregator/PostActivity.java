@@ -99,11 +99,29 @@ public class PostActivity extends AppCompatActivity {
                     thread.start();
                     try {
                         thread.join();
-                        Intent intent = new Intent(PostActivity.this, HomePage.class);
-                        startActivity(intent);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+
+                    Intent share = new Intent(Intent.ACTION_SEND);
+
+                    // Set the MIME type
+                    String type = "image/*";
+                    share.setType(type);
+
+                    // Create the URI from the media
+                    //File media = new File(mediaPath);
+                    //Uri uri = Uri.fromFile(media);
+                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                    // Add the URI to the Intent.
+                    share.putExtra(Intent.EXTRA_STREAM, uri);
+
+                    // Broadcast the Intent.
+                    startActivity(Intent.createChooser(share, "Share to"));
+
+
                 }
                 else if (twitterFlag && facebookFlag){
                     Toast.makeText(PostActivity.this,
@@ -136,8 +154,6 @@ public class PostActivity extends AppCompatActivity {
                     thread.start();
                     try {
                         thread.join();
-                        Intent intent = new Intent(PostActivity.this, HomePage.class);
-                        startActivity(intent);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -173,15 +189,48 @@ public class PostActivity extends AppCompatActivity {
                     thread.start();
                     try {
                         thread.join();
-                        Intent intent = new Intent(PostActivity.this, HomePage.class);
-                        startActivity(intent);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+
+                    Intent share = new Intent(Intent.ACTION_SEND);
+
+                    // Set the MIME type
+                    String type = "image/*";
+                    share.setType(type);
+
+                    // Create the URI from the media
+                    //File media = new File(mediaPath);
+                    //Uri uri = Uri.fromFile(media);
+                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                    // Add the URI to the Intent.
+                    share.putExtra(Intent.EXTRA_STREAM, uri);
+
+                    // Broadcast the Intent.
+                    startActivity(Intent.createChooser(share, "Share to"));
                 }
                 else if (facebookFlag && instagramFlag){
                     Toast.makeText(PostActivity.this,
                             "Facebook and Instagram Checked", Toast.LENGTH_LONG).show();
+
+                    Intent share = new Intent(Intent.ACTION_SEND);
+
+                    // Set the MIME type
+                    String type = "image/*";
+                    share.setType(type);
+
+                    // Create the URI from the media
+                    //File media = new File(mediaPath);
+                    //Uri uri = Uri.fromFile(media);
+                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                    // Add the URI to the Intent.
+                    share.putExtra(Intent.EXTRA_STREAM, uri);
+
+                    // Broadcast the Intent.
+                    startActivity(Intent.createChooser(share, "Share to"));
                 }
                 else if (twitterFlag){
                     Toast.makeText(PostActivity.this,
@@ -214,8 +263,6 @@ public class PostActivity extends AppCompatActivity {
                     thread.start();
                     try {
                         thread.join();
-                        Intent intent = new Intent(PostActivity.this, HomePage.class);
-                        startActivity(intent);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -226,15 +273,24 @@ public class PostActivity extends AppCompatActivity {
                 }
                 else if (instagramFlag){
                     Toast.makeText(PostActivity.this,
-                            "Only Instagram Checked", Toast.LENGTH_LONG).show();
+                            "Only Instagram Checked!", Toast.LENGTH_LONG).show();
 
+                    Intent share = new Intent(Intent.ACTION_SEND);
 
+                    // Set the MIME type
                     String type = "image/*";
-                    String filename = "/download.png";
-                    String mediaPath = Environment.getExternalStorageDirectory() + filename;
+                    share.setType(type);
 
-                    createInstagramIntent(type, mediaPath);
+                    // Create the URI from the media
+                    //File media = new File(mediaPath);
+                    //Uri uri = Uri.fromFile(media);
+                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
 
+                    // Add the URI to the Intent.
+                    share.putExtra(Intent.EXTRA_STREAM, uri);
+
+                    // Broadcast the Intent.
+                    startActivity(Intent.createChooser(share, "Share to"));
                 }
                 else{
                     Toast.makeText(PostActivity.this,

@@ -58,20 +58,145 @@ public class StoryActivity extends AppCompatActivity {
                     Toast.makeText(StoryActivity.this,
                             "All 3 of them Checked", Toast.LENGTH_LONG).show();
 
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent share = new Intent(Intent.ACTION_SEND);
+
+                            // Set the MIME type
+                            String type = "image/*";
+                            share.setType(type);
+
+                            // Create the URI from the media
+                            //File media = new File(mediaPath);
+                            //Uri uri = Uri.fromFile(media);
+                            Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                            // Add the URI to the Intent.
+                            share.putExtra(Intent.EXTRA_STREAM, uri);
+
+                            // Broadcast the Intent.
+                            startActivity(Intent.createChooser(share, "Share to"));
+                        }
+                    });
+                    thread.start();
+                    try {
+                        thread.join();
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    Intent share = new Intent(Intent.ACTION_SEND);
+
+                    // Set the MIME type
+                    String type = "image/*";
+                    share.setType(type);
+
+                    // Create the URI from the media
+                    //File media = new File(mediaPath);
+                    //Uri uri = Uri.fromFile(media);
+                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                    // Add the URI to the Intent.
+                    share.putExtra(Intent.EXTRA_STREAM, uri);
+
+                    // Broadcast the Intent.
+                    startActivity(Intent.createChooser(share, "Share to"));
+
                 }
                 else if (twitterFlag && facebookFlag){
                     Toast.makeText(StoryActivity.this,
                             "Twitter and Facebook Checked", Toast.LENGTH_LONG).show();
+
+                    Intent share = new Intent(Intent.ACTION_SEND);
+
+                    // Set the MIME type
+                    String type = "image/*";
+                    share.setType(type);
+
+                    // Create the URI from the media
+                    //File media = new File(mediaPath);
+                    //Uri uri = Uri.fromFile(media);
+                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                    // Add the URI to the Intent.
+                    share.putExtra(Intent.EXTRA_STREAM, uri);
+
+                    // Broadcast the Intent.
+                    startActivity(Intent.createChooser(share, "Share to"));
 
                 }
                 else if (twitterFlag && instagramFlag){
                     Toast.makeText(StoryActivity.this,
                             "Twitter and Instagram Checked", Toast.LENGTH_LONG).show();
 
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent share = new Intent(Intent.ACTION_SEND);
+
+                            // Set the MIME type
+                            String type = "image/*";
+                            share.setType(type);
+
+                            // Create the URI from the media
+                            //File media = new File(mediaPath);
+                            //Uri uri = Uri.fromFile(media);
+                            Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                            // Add the URI to the Intent.
+                            share.putExtra(Intent.EXTRA_STREAM, uri);
+
+                            // Broadcast the Intent.
+                            startActivity(Intent.createChooser(share, "Share to"));
+                        }
+                    });
+                    thread.start();
+                    try {
+                        thread.join();
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    Intent share = new Intent(Intent.ACTION_SEND);
+
+                    // Set the MIME type
+                    String type = "image/*";
+                    share.setType(type);
+
+                    // Create the URI from the media
+                    //File media = new File(mediaPath);
+                    //Uri uri = Uri.fromFile(media);
+                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                    // Add the URI to the Intent.
+                    share.putExtra(Intent.EXTRA_STREAM, uri);
+
+                    // Broadcast the Intent.
+                    startActivity(Intent.createChooser(share, "Share to"));
                 }
                 else if (facebookFlag && instagramFlag){
                     Toast.makeText(StoryActivity.this,
                             "Facebook and Instagram Checked", Toast.LENGTH_LONG).show();
+
+                    Intent share = new Intent(Intent.ACTION_SEND);
+
+                    // Set the MIME type
+                    String type = "image/*";
+                    share.setType(type);
+
+                    // Create the URI from the media
+                    //File media = new File(mediaPath);
+                    //Uri uri = Uri.fromFile(media);
+                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                    // Add the URI to the Intent.
+                    share.putExtra(Intent.EXTRA_STREAM, uri);
+
+                    // Broadcast the Intent.
+                    startActivity(Intent.createChooser(share, "Share to"));
                 }
                 else if (twitterFlag){
                     Toast.makeText(StoryActivity.this,
@@ -103,6 +228,23 @@ public class StoryActivity extends AppCompatActivity {
                 else if (instagramFlag){
                     Toast.makeText(StoryActivity.this,
                             "Only Instagram Checked", Toast.LENGTH_LONG).show();
+
+                    Intent share = new Intent(Intent.ACTION_SEND);
+
+                    // Set the MIME type
+                    String type = "image/*";
+                    share.setType(type);
+
+                    // Create the URI from the media
+                    //File media = new File(mediaPath);
+                    //Uri uri = Uri.fromFile(media);
+                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                    // Add the URI to the Intent.
+                    share.putExtra(Intent.EXTRA_STREAM, uri);
+
+                    // Broadcast the Intent.
+                    startActivity(Intent.createChooser(share, "Share to"));
                 }
                 else{
                     Toast.makeText(StoryActivity.this,
@@ -120,7 +262,7 @@ public class StoryActivity extends AppCompatActivity {
         if(checkBox.isChecked()){
             facebookFlag = true;
         }
-        if (!checkBox.isChecked()){
+        else {
             facebookFlag = false;
         }
     }
@@ -131,7 +273,7 @@ public class StoryActivity extends AppCompatActivity {
         if(checkBox.isChecked()){
             twitterFlag = true;
         }
-        if (!checkBox.isChecked()){
+        else {
             twitterFlag = false;
         }
     }
@@ -142,7 +284,7 @@ public class StoryActivity extends AppCompatActivity {
         if(checkBox.isChecked()){
             instagramFlag = true;
         }
-        if (!checkBox.isChecked()){
+        else {
             instagramFlag = false;
         }
     }
