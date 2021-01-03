@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import okhttp3.MediaType;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -29,6 +30,8 @@ public class StoryActivity extends AppCompatActivity {
     CheckBox facebookCheck;
     CheckBox twitterCheck;
     CheckBox instagramCheck;
+
+    final MediaType MEDIA_TYPE_JPEG = MediaType.parse("image/jpeg");
 
     boolean twitterFlag, facebookFlag, instagramFlag;
 
@@ -87,22 +90,26 @@ public class StoryActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Intent share = new Intent(Intent.ACTION_SEND);
+                    Uri stickerAssetUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+                    String sourceApplication = "com.example.socialmedianetworkaggregator";
 
-                    // Set the MIME type
-                    String type = "image/*";
-                    share.setType(type);
+                    // Instantiate implicit intent with ADD_TO_STORY action,
+                    // sticker asset, and background colors
+                    Intent intent = new Intent("com.instagram.share.ADD_TO_STORY");
+                    intent.putExtra("source_application", sourceApplication);
 
-                    // Create the URI from the media
-                    //File media = new File(mediaPath);
-                    //Uri uri = Uri.fromFile(media);
-                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+                    intent.setType(String.valueOf(MEDIA_TYPE_JPEG));
+                    intent.putExtra("interactive_asset_uri", stickerAssetUri);
+                    intent.putExtra("top_background_color", "#33FF33");
+                    intent.putExtra("bottom_background_color", "#FF00FF");
 
-                    // Add the URI to the Intent.
-                    share.putExtra(Intent.EXTRA_STREAM, uri);
-
-                    // Broadcast the Intent.
-                    startActivity(Intent.createChooser(share, "Share to"));
+                    // Instantiate activity and verify it will resolve implicit intent
+                    Activity activity = StoryActivity.this;
+                    activity.grantUriPermission(
+                            "com.instagram.android", stickerAssetUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    if (activity.getPackageManager().resolveActivity(intent, 0) != null) {
+                        activity.startActivityForResult(intent, 0);
+                    }
 
                 }
                 else if (twitterFlag && facebookFlag){
@@ -160,43 +167,51 @@ public class StoryActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Intent share = new Intent(Intent.ACTION_SEND);
+                    Uri stickerAssetUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+                    String sourceApplication = "com.example.socialmedianetworkaggregator";
 
-                    // Set the MIME type
-                    String type = "image/*";
-                    share.setType(type);
+                    // Instantiate implicit intent with ADD_TO_STORY action,
+                    // sticker asset, and background colors
+                    Intent intent = new Intent("com.instagram.share.ADD_TO_STORY");
+                    intent.putExtra("source_application", sourceApplication);
 
-                    // Create the URI from the media
-                    //File media = new File(mediaPath);
-                    //Uri uri = Uri.fromFile(media);
-                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+                    intent.setType(String.valueOf(MEDIA_TYPE_JPEG));
+                    intent.putExtra("interactive_asset_uri", stickerAssetUri);
+                    intent.putExtra("top_background_color", "#33FF33");
+                    intent.putExtra("bottom_background_color", "#FF00FF");
 
-                    // Add the URI to the Intent.
-                    share.putExtra(Intent.EXTRA_STREAM, uri);
-
-                    // Broadcast the Intent.
-                    startActivity(Intent.createChooser(share, "Share to"));
+                    // Instantiate activity and verify it will resolve implicit intent
+                    Activity activity = StoryActivity.this;
+                    activity.grantUriPermission(
+                            "com.instagram.android", stickerAssetUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    if (activity.getPackageManager().resolveActivity(intent, 0) != null) {
+                        activity.startActivityForResult(intent, 0);
+                    }
                 }
                 else if (facebookFlag && instagramFlag){
                     Toast.makeText(StoryActivity.this,
                             "Facebook and Instagram Checked", Toast.LENGTH_LONG).show();
 
-                    Intent share = new Intent(Intent.ACTION_SEND);
+                    Uri stickerAssetUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+                    String sourceApplication = "com.example.socialmedianetworkaggregator";
 
-                    // Set the MIME type
-                    String type = "image/*";
-                    share.setType(type);
+                    // Instantiate implicit intent with ADD_TO_STORY action,
+                    // sticker asset, and background colors
+                    Intent intent = new Intent("com.instagram.share.ADD_TO_STORY");
+                    intent.putExtra("source_application", sourceApplication);
 
-                    // Create the URI from the media
-                    //File media = new File(mediaPath);
-                    //Uri uri = Uri.fromFile(media);
-                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+                    intent.setType(String.valueOf(MEDIA_TYPE_JPEG));
+                    intent.putExtra("interactive_asset_uri", stickerAssetUri);
+                    intent.putExtra("top_background_color", "#33FF33");
+                    intent.putExtra("bottom_background_color", "#FF00FF");
 
-                    // Add the URI to the Intent.
-                    share.putExtra(Intent.EXTRA_STREAM, uri);
-
-                    // Broadcast the Intent.
-                    startActivity(Intent.createChooser(share, "Share to"));
+                    // Instantiate activity and verify it will resolve implicit intent
+                    Activity activity = StoryActivity.this;
+                    activity.grantUriPermission(
+                            "com.instagram.android", stickerAssetUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    if (activity.getPackageManager().resolveActivity(intent, 0) != null) {
+                        activity.startActivityForResult(intent, 0);
+                    }
                 }
                 else if (twitterFlag){
                     Toast.makeText(StoryActivity.this,
@@ -229,22 +244,27 @@ public class StoryActivity extends AppCompatActivity {
                     Toast.makeText(StoryActivity.this,
                             "Only Instagram Checked", Toast.LENGTH_LONG).show();
 
-                    Intent share = new Intent(Intent.ACTION_SEND);
+                    Uri stickerAssetUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+                    String sourceApplication = "com.example.socialmedianetworkaggregator";
 
-                    // Set the MIME type
-                    String type = "image/*";
-                    share.setType(type);
+                    // Instantiate implicit intent with ADD_TO_STORY action,
+                    // sticker asset, and background colors
+                    Intent intent = new Intent("com.instagram.share.ADD_TO_STORY");
+                    intent.putExtra("source_application", sourceApplication);
 
-                    // Create the URI from the media
-                    //File media = new File(mediaPath);
-                    //Uri uri = Uri.fromFile(media);
-                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+                    intent.setType(String.valueOf(MEDIA_TYPE_JPEG));
+                    intent.putExtra("interactive_asset_uri", stickerAssetUri);
+                    intent.putExtra("top_background_color", "#33FF33");
+                    intent.putExtra("bottom_background_color", "#FF00FF");
 
-                    // Add the URI to the Intent.
-                    share.putExtra(Intent.EXTRA_STREAM, uri);
+                    // Instantiate activity and verify it will resolve implicit intent
+                    Activity activity = StoryActivity.this;
+                    activity.grantUriPermission(
+                            "com.instagram.android", stickerAssetUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    if (activity.getPackageManager().resolveActivity(intent, 0) != null) {
+                        activity.startActivityForResult(intent, 0);
+                    }
 
-                    // Broadcast the Intent.
-                    startActivity(Intent.createChooser(share, "Share to"));
                 }
                 else{
                     Toast.makeText(StoryActivity.this,
