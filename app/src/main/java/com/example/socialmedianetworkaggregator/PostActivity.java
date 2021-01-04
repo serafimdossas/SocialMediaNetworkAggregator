@@ -2,7 +2,10 @@ package com.example.socialmedianetworkaggregator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,12 +16,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.androidnetworking.utils.Utils;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import java.io.File;
 
+import okhttp3.MediaType;
 import twitter4j.Status;
 import twitter4j.Trend;
 import twitter4j.Twitter;
@@ -65,6 +70,9 @@ public class PostActivity extends AppCompatActivity {
         instagramCheck = findViewById(R.id.instagramCheckBox);
 
 
+        final MediaType MEDIA_TYPE_JPEG = MediaType.parse("image/jpeg");
+
+
         postButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
@@ -103,23 +111,15 @@ public class PostActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
 
-                    Intent share = new Intent(Intent.ACTION_SEND);
+                    Intent shareIntent = new Intent("com.instagram.share.ADD_TO_FEED");
+                    shareIntent.setType("image/*");
+                    shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                    shareIntent.setPackage("com.instagram.android");
 
-                    // Set the MIME type
-                    String type = "image/*";
-                    share.setType(type);
-
-                    // Create the URI from the media
-                    //File media = new File(mediaPath);
-                    //Uri uri = Uri.fromFile(media);
-                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
-
-                    // Add the URI to the Intent.
-                    share.putExtra(Intent.EXTRA_STREAM, uri);
-
-                    // Broadcast the Intent.
-                    startActivity(Intent.createChooser(share, "Share to"));
+                    startActivity(shareIntent);
 
 
                 }
@@ -193,44 +193,31 @@ public class PostActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
 
-                    Intent share = new Intent(Intent.ACTION_SEND);
+                    Intent shareIntent = new Intent("com.instagram.share.ADD_TO_FEED");
+                    shareIntent.setType("image/*");
+                    shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                    shareIntent.setPackage("com.instagram.android");
 
-                    // Set the MIME type
-                    String type = "image/*";
-                    share.setType(type);
-
-                    // Create the URI from the media
-                    //File media = new File(mediaPath);
-                    //Uri uri = Uri.fromFile(media);
-                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
-
-                    // Add the URI to the Intent.
-                    share.putExtra(Intent.EXTRA_STREAM, uri);
-
-                    // Broadcast the Intent.
-                    startActivity(Intent.createChooser(share, "Share to"));
+                    startActivity(shareIntent);
                 }
                 else if (facebookFlag && instagramFlag){
                     Toast.makeText(PostActivity.this,
                             "Facebook and Instagram Checked", Toast.LENGTH_LONG).show();
 
-                    Intent share = new Intent(Intent.ACTION_SEND);
 
-                    // Set the MIME type
-                    String type = "image/*";
-                    share.setType(type);
+                    Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
 
-                    // Create the URI from the media
-                    //File media = new File(mediaPath);
-                    //Uri uri = Uri.fromFile(media);
-                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+                    Intent shareIntent = new Intent("com.instagram.share.ADD_TO_FEED");
+                    shareIntent.setType("image/*");
+                    shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                    shareIntent.setPackage("com.instagram.android");
 
-                    // Add the URI to the Intent.
-                    share.putExtra(Intent.EXTRA_STREAM, uri);
+                    startActivity(shareIntent);
 
-                    // Broadcast the Intent.
-                    startActivity(Intent.createChooser(share, "Share to"));
                 }
                 else if (twitterFlag){
                     Toast.makeText(PostActivity.this,
@@ -275,22 +262,15 @@ public class PostActivity extends AppCompatActivity {
                     Toast.makeText(PostActivity.this,
                             "Only Instagram Checked!", Toast.LENGTH_LONG).show();
 
-                    Intent share = new Intent(Intent.ACTION_SEND);
+                    Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
 
-                    // Set the MIME type
-                    String type = "image/*";
-                    share.setType(type);
+                    Intent shareIntent = new Intent("com.instagram.share.ADD_TO_FEED");
+                    shareIntent.setType("image/*");
+                    shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                    shareIntent.setPackage("com.instagram.android");
 
-                    // Create the URI from the media
-                    //File media = new File(mediaPath);
-                    //Uri uri = Uri.fromFile(media);
-                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
-
-                    // Add the URI to the Intent.
-                    share.putExtra(Intent.EXTRA_STREAM, uri);
-
-                    // Broadcast the Intent.
-                    startActivity(Intent.createChooser(share, "Share to"));
+                    startActivity(shareIntent);
                 }
                 else{
                     Toast.makeText(PostActivity.this,
