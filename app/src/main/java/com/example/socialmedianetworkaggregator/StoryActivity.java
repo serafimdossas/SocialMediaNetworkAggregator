@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +21,8 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
+
+import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class StoryActivity extends AppCompatActivity {
 
@@ -61,54 +64,42 @@ public class StoryActivity extends AppCompatActivity {
                     Toast.makeText(StoryActivity.this,
                             "All 3 of them Checked", Toast.LENGTH_LONG).show();
 
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent share = new Intent(Intent.ACTION_SEND);
+                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
 
-                            // Set the MIME type
-                            String type = "image/*";
-                            share.setType(type);
-
-                            // Create the URI from the media
-                            //File media = new File(mediaPath);
-                            //Uri uri = Uri.fromFile(media);
-                            Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
-
-                            // Add the URI to the Intent.
-                            share.putExtra(Intent.EXTRA_STREAM, uri);
-
-                            // Broadcast the Intent.
-                            startActivity(Intent.createChooser(share, "Share to"));
-                        }
-                    });
-                    thread.start();
                     try {
-                        thread.join();
-
-                    } catch (InterruptedException e) {
+                        StoryActivity.this.getPackageManager().getPackageInfo("com.twitter.android", 0);
+                    } catch (PackageManager.NameNotFoundException e) {
                         e.printStackTrace();
                     }
+
+                    Intent intentTwitter = new Intent(Intent.ACTION_SEND);
+
+                    intentTwitter.setClassName("com.twitter.android", "com.twitter.app.fleets.page.FleetThreadActivity");
+                    intentTwitter.setType("image/*");
+                    intentTwitter.putExtra(Intent.EXTRA_TEXT, uri);
+
+                    startActivity(intentTwitter);
+
 
                     Uri stickerAssetUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
                     String sourceApplication = "com.example.socialmedianetworkaggregator";
 
                     // Instantiate implicit intent with ADD_TO_STORY action,
                     // sticker asset, and background colors
-                    Intent intent = new Intent("com.instagram.share.ADD_TO_STORY");
-                    intent.putExtra("source_application", sourceApplication);
+                    Intent intentInsta = new Intent("com.instagram.share.ADD_TO_STORY");
+                    intentInsta.putExtra("source_application", sourceApplication);
 
-                    intent.setType(String.valueOf(MEDIA_TYPE_JPEG));
-                    intent.putExtra("interactive_asset_uri", stickerAssetUri);
-                    intent.putExtra("top_background_color", "#33FF33");
-                    intent.putExtra("bottom_background_color", "#FF00FF");
+                    intentInsta.setType(String.valueOf(MEDIA_TYPE_JPEG));
+                    intentInsta.putExtra("interactive_asset_uri", stickerAssetUri);
+                    intentInsta.putExtra("top_background_color", "#33FF33");
+                    intentInsta.putExtra("bottom_background_color", "#FF00FF");
 
                     // Instantiate activity and verify it will resolve implicit intent
                     Activity activity = StoryActivity.this;
                     activity.grantUriPermission(
                             "com.instagram.android", stickerAssetUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    if (activity.getPackageManager().resolveActivity(intent, 0) != null) {
-                        activity.startActivityForResult(intent, 0);
+                    if (activity.getPackageManager().resolveActivity(intentInsta, 0) != null) {
+                        activity.startActivityForResult(intentInsta, 0);
                     }
 
                 }
@@ -116,76 +107,62 @@ public class StoryActivity extends AppCompatActivity {
                     Toast.makeText(StoryActivity.this,
                             "Twitter and Facebook Checked", Toast.LENGTH_LONG).show();
 
-                    Intent share = new Intent(Intent.ACTION_SEND);
-
-                    // Set the MIME type
-                    String type = "image/*";
-                    share.setType(type);
-
-                    // Create the URI from the media
-                    //File media = new File(mediaPath);
-                    //Uri uri = Uri.fromFile(media);
                     Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
 
-                    // Add the URI to the Intent.
-                    share.putExtra(Intent.EXTRA_STREAM, uri);
+                    try {
+                        StoryActivity.this.getPackageManager().getPackageInfo("com.twitter.android", 0);
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
 
-                    // Broadcast the Intent.
-                    startActivity(Intent.createChooser(share, "Share to"));
+                    Intent intentTwitter = new Intent(Intent.ACTION_SEND);
+
+                    intentTwitter.setClassName("com.twitter.android", "com.twitter.app.fleets.page.FleetThreadActivity");
+                    intentTwitter.setType("image/*");
+                    intentTwitter.putExtra(Intent.EXTRA_TEXT, uri);
+
+                    startActivity(intentTwitter);
 
                 }
                 else if (twitterFlag && instagramFlag){
                     Toast.makeText(StoryActivity.this,
                             "Twitter and Instagram Checked", Toast.LENGTH_LONG).show();
 
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent share = new Intent(Intent.ACTION_SEND);
+                    Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
 
-                            // Set the MIME type
-                            String type = "image/*";
-                            share.setType(type);
-
-                            // Create the URI from the media
-                            //File media = new File(mediaPath);
-                            //Uri uri = Uri.fromFile(media);
-                            Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
-
-                            // Add the URI to the Intent.
-                            share.putExtra(Intent.EXTRA_STREAM, uri);
-
-                            // Broadcast the Intent.
-                            startActivity(Intent.createChooser(share, "Share to"));
-                        }
-                    });
-                    thread.start();
                     try {
-                        thread.join();
-
-                    } catch (InterruptedException e) {
+                        StoryActivity.this.getPackageManager().getPackageInfo("com.twitter.android", 0);
+                    } catch (PackageManager.NameNotFoundException e) {
                         e.printStackTrace();
                     }
+
+                    Intent intentTwitter = new Intent(Intent.ACTION_SEND);
+
+                    intentTwitter.setClassName("com.twitter.android", "com.twitter.app.fleets.page.FleetThreadActivity");
+                    intentTwitter.setType("image/*");
+                    intentTwitter.putExtra(Intent.EXTRA_TEXT, uri);
+
+                    startActivity(intentTwitter);
 
                     Uri stickerAssetUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
                     String sourceApplication = "com.example.socialmedianetworkaggregator";
 
                     // Instantiate implicit intent with ADD_TO_STORY action,
                     // sticker asset, and background colors
-                    Intent intent = new Intent("com.instagram.share.ADD_TO_STORY");
-                    intent.putExtra("source_application", sourceApplication);
+                    Intent intentInsta = new Intent("com.instagram.share.ADD_TO_STORY");
+                    intentInsta.putExtra("source_application", sourceApplication);
 
-                    intent.setType(String.valueOf(MEDIA_TYPE_JPEG));
-                    intent.putExtra("interactive_asset_uri", stickerAssetUri);
-                    intent.putExtra("top_background_color", "#33FF33");
-                    intent.putExtra("bottom_background_color", "#FF00FF");
+                    intentInsta.setType(String.valueOf(MEDIA_TYPE_JPEG));
+                    intentInsta.putExtra("interactive_asset_uri", stickerAssetUri);
+                    intentInsta.putExtra("top_background_color", "#33FF33");
+                    intentInsta.putExtra("bottom_background_color", "#FF00FF");
 
                     // Instantiate activity and verify it will resolve implicit intent
                     Activity activity = StoryActivity.this;
                     activity.grantUriPermission(
                             "com.instagram.android", stickerAssetUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    if (activity.getPackageManager().resolveActivity(intent, 0) != null) {
-                        activity.startActivityForResult(intent, 0);
+                    if (activity.getPackageManager().resolveActivity(intentInsta, 0) != null) {
+                        activity.startActivityForResult(intentInsta, 0);
                     }
                 }
                 else if (facebookFlag && instagramFlag){
@@ -197,44 +174,41 @@ public class StoryActivity extends AppCompatActivity {
 
                     // Instantiate implicit intent with ADD_TO_STORY action,
                     // sticker asset, and background colors
-                    Intent intent = new Intent("com.instagram.share.ADD_TO_STORY");
-                    intent.putExtra("source_application", sourceApplication);
+                    Intent intentInsta = new Intent("com.instagram.share.ADD_TO_STORY");
+                    intentInsta.putExtra("source_application", sourceApplication);
 
-                    intent.setType(String.valueOf(MEDIA_TYPE_JPEG));
-                    intent.putExtra("interactive_asset_uri", stickerAssetUri);
-                    intent.putExtra("top_background_color", "#33FF33");
-                    intent.putExtra("bottom_background_color", "#FF00FF");
+                    intentInsta.setType(String.valueOf(MEDIA_TYPE_JPEG));
+                    intentInsta.putExtra("interactive_asset_uri", stickerAssetUri);
+                    intentInsta.putExtra("top_background_color", "#33FF33");
+                    intentInsta.putExtra("bottom_background_color", "#FF00FF");
 
                     // Instantiate activity and verify it will resolve implicit intent
                     Activity activity = StoryActivity.this;
                     activity.grantUriPermission(
                             "com.instagram.android", stickerAssetUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    if (activity.getPackageManager().resolveActivity(intent, 0) != null) {
-                        activity.startActivityForResult(intent, 0);
+                    if (activity.getPackageManager().resolveActivity(intentInsta, 0) != null) {
+                        activity.startActivityForResult(intentInsta, 0);
                     }
                 }
                 else if (twitterFlag){
                     Toast.makeText(StoryActivity.this,
                             "Only Twitter Checked", Toast.LENGTH_LONG).show();
 
-                    Intent share = new Intent(Intent.ACTION_SEND);
-
-                    // Set the MIME type
-                    String type = "image/*";
-                    share.setType(type);
-
-                    // Create the URI from the media
-                    //File media = new File(mediaPath);
-                    //Uri uri = Uri.fromFile(media);
                     Uri uri = Uri.parse("file:///storage/emulated/0/Download/download.png");
 
-                    // Add the URI to the Intent.
-                    share.putExtra(Intent.EXTRA_STREAM, uri);
+                    try {
+                        StoryActivity.this.getPackageManager().getPackageInfo("com.twitter.android", 0);
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
 
-                    // Broadcast the Intent.
-                    startActivity(Intent.createChooser(share, "Share to"));
+                    Intent intentTwitter = new Intent(Intent.ACTION_SEND);
 
+                    intentTwitter.setClassName("com.twitter.android", "com.twitter.app.fleets.page.FleetThreadActivity");
+                    intentTwitter.setType("image/*");
+                    intentTwitter.putExtra(Intent.EXTRA_TEXT, uri);
 
+                    startActivity(intentTwitter);
                 }
                 else if (facebookFlag){
                     Toast.makeText(StoryActivity.this,
@@ -249,20 +223,20 @@ public class StoryActivity extends AppCompatActivity {
 
                     // Instantiate implicit intent with ADD_TO_STORY action,
                     // sticker asset, and background colors
-                    Intent intent = new Intent("com.instagram.share.ADD_TO_STORY");
-                    intent.putExtra("source_application", sourceApplication);
+                    Intent intentInsta = new Intent("com.instagram.share.ADD_TO_STORY");
+                    intentInsta.putExtra("source_application", sourceApplication);
 
-                    intent.setType(String.valueOf(MEDIA_TYPE_JPEG));
-                    intent.putExtra("interactive_asset_uri", stickerAssetUri);
-                    intent.putExtra("top_background_color", "#33FF33");
-                    intent.putExtra("bottom_background_color", "#FF00FF");
+                    intentInsta.setType(String.valueOf(MEDIA_TYPE_JPEG));
+                    intentInsta.putExtra("interactive_asset_uri", stickerAssetUri);
+                    intentInsta.putExtra("top_background_color", "#33FF33");
+                    intentInsta.putExtra("bottom_background_color", "#FF00FF");
 
                     // Instantiate activity and verify it will resolve implicit intent
                     Activity activity = StoryActivity.this;
                     activity.grantUriPermission(
                             "com.instagram.android", stickerAssetUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    if (activity.getPackageManager().resolveActivity(intent, 0) != null) {
-                        activity.startActivityForResult(intent, 0);
+                    if (activity.getPackageManager().resolveActivity(intentInsta, 0) != null) {
+                        activity.startActivityForResult(intentInsta, 0);
                     }
 
                 }
