@@ -25,7 +25,7 @@ public class TrendingHashtagsActivity extends AppCompatActivity {
     public static final String CONSUMER_KEY = "BS1hJK04QKLT61t6kWmo1UW4P";
     public static final String CONSUMER_SECRET = "r9Lp9mIogaVvEBpjBx2grYFEwSm8oKrHKszFaxQMwUtHh7GkAv";
 
-    public static final String TAG = "TwitterUtils";
+    public static final String TAG = "Trends";
 
 
     @Override

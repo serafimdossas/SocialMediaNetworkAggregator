@@ -36,20 +36,20 @@ import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class StoryActivity extends AppCompatActivity {
 
-    Button postButton;
+    private Button postButton;
 
-    CheckBox facebookCheck;
-    CheckBox twitterCheck;
-    CheckBox instagramCheck;
+    private CheckBox facebookCheck;
+    private CheckBox twitterCheck;
+    private CheckBox instagramCheck;
 
 
     private ShareButton sharePhotoButton;
     private ShareButton shareLinkButton;
     private ImageView image;
 
-    final MediaType MEDIA_TYPE_JPEG = MediaType.parse("image/jpeg");
+    private final MediaType MEDIA_TYPE_JPEG = MediaType.parse("image/jpeg");
 
-    boolean twitterFlag, facebookFlag, instagramFlag;
+    private boolean twitterFlag, facebookFlag, instagramFlag;
 
 
     @Override
@@ -65,13 +65,13 @@ public class StoryActivity extends AppCompatActivity {
 
         postButton = findViewById(R.id.postButton);
 
-        facebookCheck = findViewById(R.id.facebookCheckBox);
-        twitterCheck = findViewById(R.id.twitterCheckBox);
-        instagramCheck = findViewById(R.id.instagramCheckBox);
+        facebookCheck = (CheckBox) findViewById(R.id.facebookCheckBox);
+        twitterCheck = (CheckBox) findViewById(R.id.twitterCheckBox);
+        instagramCheck = (CheckBox) findViewById(R.id.instagramCheckBox);
 
         sharePhotoButton = (ShareButton) findViewById(R.id.bt_sharePhoto);
         shareLinkButton = findViewById(R.id.bt_shareLink);
-        image = findViewById(R.id.iv_picture);
+        image = (ImageView) findViewById(R.id.iv_picture);
         image.setImageResource(R.drawable.story);
 
         postButton.setOnClickListener(new View.OnClickListener() {
@@ -160,14 +160,11 @@ public class StoryActivity extends AppCompatActivity {
             sharePhotoButton.setVisibility(View.VISIBLE);
             shareLinkButton.setVisibility(View.VISIBLE);
             // prepare photo to be shared when the Share Photo button is pressed
-
-
         }
         if (!checkBox.isChecked()){
             facebookFlag = false;
             sharePhotoButton.setVisibility(View.INVISIBLE);
             shareLinkButton.setVisibility(View.INVISIBLE);
-
         }
     }
 

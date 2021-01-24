@@ -18,10 +18,10 @@ public class HashtagsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hashtags);
 
         final EditText hashtagTextSearch;
-        hashtagTextSearch = findViewById(R.id.hashtagTextSearch);
+        hashtagTextSearch = (EditText) findViewById(R.id.hashtagTextSearch);
 
         Button searchButton;
-        searchButton = findViewById(R.id.searchButton);
+        searchButton = (Button) findViewById(R.id.searchButton);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -36,7 +36,6 @@ public class HashtagsActivity extends AppCompatActivity {
         trendsButton = findViewById(R.id.trendsButton);
         trendsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                log.e("TwitterUtils", "line start");
                 Intent i = new Intent(HashtagsActivity.this,TrendingHashtagsActivity.class);
                 startActivity(i);
             }

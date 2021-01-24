@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -51,18 +52,18 @@ import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class PostActivity extends AppCompatActivity {
 
-    Button postButton;
+    private Button postButton;
 
-    CheckBox facebookCheck;
-    CheckBox twitterCheck;
-    CheckBox instagramCheck;
+    private CheckBox facebookCheck;
+    private CheckBox twitterCheck;
+    private CheckBox instagramCheck;
 
 
     private ShareButton sharePhotoButton;
     private ShareButton shareLinkButton;
     private ImageView image;
 
-    boolean twitterFlag, facebookFlag, instagramFlag;
+    private boolean twitterFlag, facebookFlag, instagramFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,14 +79,14 @@ public class PostActivity extends AppCompatActivity {
 
         sharePhotoButton = (ShareButton) findViewById(R.id.bt_sharePhoto);
         shareLinkButton = findViewById(R.id.bt_shareLink);
-        image = findViewById(R.id.iv_picture);
+        image = (ImageView) findViewById(R.id.iv_picture);
         image.setImageResource(R.drawable.story);
 
-        postButton = findViewById(R.id.postButton);
+        postButton = (Button) findViewById(R.id.postButton);
 
-        facebookCheck = findViewById(R.id.facebookCheckBox);
-        twitterCheck = findViewById(R.id.twitterCheckBox);
-        instagramCheck = findViewById(R.id.instagramCheckBox);
+        facebookCheck = (CheckBox) findViewById(R.id.facebookCheckBox);
+        twitterCheck = (CheckBox) findViewById(R.id.twitterCheckBox);
+        instagramCheck = (CheckBox) findViewById(R.id.instagramCheckBox);
 
         ShareLinkContent shareLinkContent = new ShareLinkContent.Builder().setContentUrl(Uri.parse(
                 "https://www.youtube.com/watch?v=GxrxV37a9YE"))
@@ -183,8 +184,6 @@ public class PostActivity extends AppCompatActivity {
             sharePhotoButton.setVisibility(View.VISIBLE);
             shareLinkButton.setVisibility(View.VISIBLE);
             // prepare photo to be shared when the Share Photo button is pressed
-
-
         }
         if (!checkBox.isChecked()){
             facebookFlag = false;
@@ -216,22 +215,4 @@ public class PostActivity extends AppCompatActivity {
         }
     }
 
-    public void createInstagramIntent(String type, String mediaPath){
-
-        // Create the new Intent using the 'Send' action.
-        Intent share = new Intent(Intent.ACTION_SEND);
-
-        // Set the MIME type
-        share.setType(type);
-
-        // Create the URI from the media
-        File media = new File(mediaPath);
-        Uri uri = Uri.fromFile(media);
-
-        // Add the URI to the Intent.
-        share.putExtra(Intent.EXTRA_STREAM, uri);
-
-        // Broadcast the Intent.
-        startActivity(Intent.createChooser(share, "Share to"));
-    }
 }

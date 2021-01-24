@@ -31,7 +31,9 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    TwitterLoginButton twitterLoginButton;
+    private TwitterLoginButton twitterLoginButton;
+
+    private final static String TWITTER_LOGIN_TAG = "TWITTER_LOGIN";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 String token = authToken.token;
                 String secret = authToken.secret;
                 String twitterName = session.getUserName();
-                Log.i("Class: ", "Twitter token and secret: " + token +"\t"+ secret);
-                Log.i("Class: ", "Twitter name: " + twitterName);
+                Log.i(TWITTER_LOGIN_TAG, "Twitter token and secret: " + token +"\t"+ secret);
+                Log.i(TWITTER_LOGIN_TAG, "Twitter name: " + twitterName);
 
                 twitterLogin(session);
             }

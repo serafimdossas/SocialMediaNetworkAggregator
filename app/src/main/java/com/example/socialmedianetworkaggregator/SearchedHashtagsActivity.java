@@ -24,6 +24,8 @@ public class SearchedHashtagsActivity extends AppCompatActivity {
     private String hashtagId;
     private AccessToken accessToken;
 
+    private final static String SEARCHED_HASHTAGS_TAG = "Searched Hashtags Activity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +33,7 @@ public class SearchedHashtagsActivity extends AppCompatActivity {
 
         String hashtag = getIntent().getStringExtra("EXTRA_HASHTAG");
         final TextView textPosts;
-        textPosts=findViewById(R.id.textPosts);
+        textPosts= (TextView) findViewById(R.id.textPosts);
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
@@ -61,7 +63,7 @@ public class SearchedHashtagsActivity extends AppCompatActivity {
                     new GraphRequest.Callback() {
                         @Override
                         public void onCompleted(GraphResponse response) {
-                            Log.d("DEMO", "Fetched Hashtag ID: " + response.getJSONObject().toString());
+                            Log.d(SEARCHED_HASHTAGS_TAG, "Fetched Hashtag ID: " + response.getJSONObject().toString());
 
                             try {
                                 JSONObject hashtagJson = response.getJSONObject();
@@ -71,9 +73,9 @@ public class SearchedHashtagsActivity extends AppCompatActivity {
                                         .getString("id");
 
 
-                                Log.d("DEMO", hashtagId);
+                                Log.d(SEARCHED_HASHTAGS_TAG, hashtagId);
                             } catch (JSONException e){
-                                Log.d("DEMO", "Error during the reading of the hashtag id");
+                                Log.d(SEARCHED_HASHTAGS_TAG, "Error during the reading of the hashtag id");
                             }
 
                             GraphRequest topHashtagsRequests = GraphRequest.newGraphPathRequest(
@@ -82,7 +84,7 @@ public class SearchedHashtagsActivity extends AppCompatActivity {
                                     new GraphRequest.Callback() {
                                         @Override
                                         public void onCompleted(GraphResponse response) {
-                                            Log.d("DEMO", response.toString());
+                                            Log.d(SEARCHED_HASHTAGS_TAG, response.toString());
                                         }
                                     });
 

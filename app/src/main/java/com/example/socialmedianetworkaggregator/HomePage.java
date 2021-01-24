@@ -14,13 +14,13 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        Button postButton = findViewById(R.id.buttonPost);
-        Button storyButton = findViewById(R.id.buttonStory);
-        Button hashtagsButton = findViewById(R.id.buttonHashtags);
+        Button postButton = (Button) findViewById(R.id.buttonPost);
+        Button storyButton = (Button) findViewById(R.id.buttonStory);
+        Button hashtagsButton = (Button) findViewById(R.id.buttonHashtags);
 
         hashtagsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
+                // Code here executes on main thread after user presses Hashtags button
                 Intent i = new Intent(HomePage.this, HashtagsActivity.class);
                 startActivity(i);
 
@@ -29,7 +29,7 @@ public class HomePage extends AppCompatActivity {
 
         postButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
+                // Code here executes on main thread after user presses Post button
                 Intent i = new Intent(HomePage.this, PostActivity.class);
                 startActivity(i);
 
@@ -38,7 +38,7 @@ public class HomePage extends AppCompatActivity {
 
         storyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
+                // Code here executes on main thread after user presses Story button
                 Intent i = new Intent(HomePage.this, StoryActivity.class);
                 startActivity(i);
 
