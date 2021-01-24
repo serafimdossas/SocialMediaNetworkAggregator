@@ -55,7 +55,6 @@ public class TrendingHashtagsActivity extends AppCompatActivity {
                     try {
                         trends[0] = twitter.getPlaceTrends(23424833);
                         int k =0;
-                        log.e(TAG, "line 116");
                         String text = "---";
                         for (Trend trend : trends[0].getTrends()){
                             text = trend.getName();
@@ -64,9 +63,7 @@ public class TrendingHashtagsActivity extends AppCompatActivity {
                             k++;
                             if (k>19) break;
                         }
-                        log.e(TAG, "line 130 "+ k + " fores");
                     } catch (TwitterException e) {
-                        log.e(TAG, "line 125");
                         e.printStackTrace();
                     }
                 } catch (Exception e) {
@@ -81,7 +78,6 @@ public class TrendingHashtagsActivity extends AppCompatActivity {
             thread.join();
 
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(TrendingHashtagsActivity.this, android.R.layout.simple_list_item_1, trendsArray);
-            log.e(TAG, "line 127");
             trendsList.setAdapter(arrayAdapter);
         } catch (InterruptedException e) {
             e.printStackTrace();
