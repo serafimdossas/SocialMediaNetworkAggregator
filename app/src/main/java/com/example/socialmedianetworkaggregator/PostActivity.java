@@ -6,6 +6,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,9 +18,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.androidnetworking.utils.Utils;
+import com.facebook.share.model.ShareHashtag;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareButton;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
@@ -48,6 +57,11 @@ public class PostActivity extends AppCompatActivity {
     CheckBox twitterCheck;
     CheckBox instagramCheck;
 
+
+    private ShareButton sharePhotoButton;
+    private ShareButton shareLinkButton;
+    private ImageView image;
+
     boolean twitterFlag, facebookFlag, instagramFlag;
 
     @Override
@@ -62,11 +76,35 @@ public class PostActivity extends AppCompatActivity {
         instagramFlag = false;
 
 
+        sharePhotoButton = (ShareButton) findViewById(R.id.bt_sharePhoto);
+        shareLinkButton = findViewById(R.id.bt_shareLink);
+        image = findViewById(R.id.iv_picture);
+        image.setImageResource(R.drawable.story);
+
         postButton = findViewById(R.id.postButton);
 
         facebookCheck = findViewById(R.id.facebookCheckBox);
         twitterCheck = findViewById(R.id.twitterCheckBox);
         instagramCheck = findViewById(R.id.instagramCheckBox);
+
+        ShareLinkContent shareLinkContent = new ShareLinkContent.Builder().setContentUrl(Uri.parse(
+                "https://www.youtube.com/watch?v=GxrxV37a9YE"))
+                .setShareHashtag(new ShareHashtag.Builder()
+                        .setHashtag("#success").build()).build();
+
+        shareLinkButton.setShareContent(shareLinkContent);
+
+        Drawable drawable = image.getDrawable();
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        SharePhoto sharePhoto = new SharePhoto.Builder()
+                .setBitmap(bitmap)
+                .build();
+
+        SharePhotoContent sharePhotoContent = new SharePhotoContent.Builder()
+                .addPhoto(sharePhoto)
+                .build();
+
+        sharePhotoButton.setShareContent(sharePhotoContent);
 
 
         final MediaType MEDIA_TYPE_JPEG = MediaType.parse("image/jpeg");
@@ -75,135 +113,9 @@ public class PostActivity extends AppCompatActivity {
         postButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
-                if ( twitterFlag && facebookFlag && instagramFlag){
+                if (twitterFlag){
                     Toast.makeText(PostActivity.this,
-                            "All 3 of them Checked", Toast.LENGTH_LONG).show();
-
-
-
-                    Thread thread = new Thread(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            final TwitterSession session = TwitterCore.getInstance().getSessionManager()
-                                    .getActiveSession();
-
-                            StrictMode.VmPolicy.Builder photoBuilder = new StrictMode.VmPolicy.Builder();
-                            StrictMode.setVmPolicy(photoBuilder.build());
-                            Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
-
-                            TweetComposer.Builder builder = new TweetComposer.Builder(PostActivity.this)
-                                    .text("")
-                                    .image(imageUri);
-                            builder.show();
-                        }
-                    });
-                    thread.start();
-                    try {
-                        thread.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
-
-                    Intent shareIntent = new Intent("com.instagram.share.ADD_TO_FEED");
-                    shareIntent.setType("image/*");
-                    shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                    shareIntent.setPackage("com.instagram.android");
-
-                    startActivity(shareIntent);
-
-
-                }
-                else if (twitterFlag && facebookFlag){
-                    Toast.makeText(PostActivity.this,
-                            "Twitter and Facebook Checked", Toast.LENGTH_LONG).show();
-
-                    Thread thread = new Thread(new Runnable() {
-
-                        @Override
-                        public void run() {
-
-                            final TwitterSession session = TwitterCore.getInstance().getSessionManager()
-                                    .getActiveSession();
-
-                            StrictMode.VmPolicy.Builder photoBuilder = new StrictMode.VmPolicy.Builder();
-                            StrictMode.setVmPolicy(photoBuilder.build());
-                            Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
-
-                            TweetComposer.Builder builder = new TweetComposer.Builder(PostActivity.this)
-                                    .text("")
-                                    .image(imageUri);
-                            builder.show();
-                        }
-                    });
-                    thread.start();
-                    try {
-                        thread.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else if (twitterFlag && instagramFlag){
-                    Toast.makeText(PostActivity.this,
-                            "Twitter and Instagram Checked", Toast.LENGTH_LONG).show();
-
-
-                    Thread thread = new Thread(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            final TwitterSession session = TwitterCore.getInstance().getSessionManager()
-                                    .getActiveSession();
-
-                            StrictMode.VmPolicy.Builder photoBuilder = new StrictMode.VmPolicy.Builder();
-                            StrictMode.setVmPolicy(photoBuilder.build());
-                            Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
-
-                            TweetComposer.Builder builder = new TweetComposer.Builder(PostActivity.this)
-                                    .text("")
-                                    .image(imageUri);
-                            builder.show();
-                        }
-                    });
-                    thread.start();
-                    try {
-                        thread.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
-
-                    Intent shareIntent = new Intent("com.instagram.share.ADD_TO_FEED");
-                    shareIntent.setType("image/*");
-                    shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                    shareIntent.setPackage("com.instagram.android");
-
-                    startActivity(shareIntent);
-                }
-                else if (facebookFlag && instagramFlag){
-                    Toast.makeText(PostActivity.this,
-                            "Facebook and Instagram Checked", Toast.LENGTH_LONG).show();
-
-
-                    Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
-
-                    Intent shareIntent = new Intent("com.instagram.share.ADD_TO_FEED");
-                    shareIntent.setType("image/*");
-                    shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                    shareIntent.setPackage("com.instagram.android");
-
-                    startActivity(shareIntent);
-
-                }
-                else if (twitterFlag){
-                    Toast.makeText(PostActivity.this,
-                            "Only Twitter Checked", Toast.LENGTH_LONG).show();
+                            "Twitter Checked", Toast.LENGTH_LONG).show();
 
 
                     final TwitterSession session = TwitterCore.getInstance().getSessionManager()
@@ -220,13 +132,33 @@ public class PostActivity extends AppCompatActivity {
 
 
                 }
-                else if (facebookFlag){
+                if (facebookFlag){
                     Toast.makeText(PostActivity.this,
-                            "Only Facebook Checked", Toast.LENGTH_LONG).show();
+                            "Facebook Checked", Toast.LENGTH_LONG).show();
+
+                    ShareLinkContent shareLinkContent = new ShareLinkContent.Builder().setContentUrl(Uri.parse(
+                            "https://www.youtube.com/watch?v=GxrxV37a9YE"))
+                            .setShareHashtag(new ShareHashtag.Builder()
+                                    .setHashtag("#success").build()).build();
+
+                    shareLinkButton.setShareContent(shareLinkContent);
+
+                    Drawable drawable = image.getDrawable();
+                    Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                    SharePhoto sharePhoto = new SharePhoto.Builder()
+                            .setBitmap(bitmap)
+                            .build();
+
+                    SharePhotoContent sharePhotoContent = new SharePhotoContent.Builder()
+                            .addPhoto(sharePhoto)
+                            .build();
+
+                    sharePhotoButton.setShareContent(sharePhotoContent);
+
                 }
-                else if (instagramFlag){
+                if (instagramFlag){
                     Toast.makeText(PostActivity.this,
-                            "Only Instagram Checked!", Toast.LENGTH_LONG).show();
+                            "Instagram Checked!", Toast.LENGTH_LONG).show();
 
                     Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
 
@@ -238,10 +170,6 @@ public class PostActivity extends AppCompatActivity {
 
                     startActivity(shareIntent);
                 }
-                else{
-                    Toast.makeText(PostActivity.this,
-                            "None of them Checked", Toast.LENGTH_LONG).show();
-                }
             }
         });
 
@@ -252,9 +180,17 @@ public class PostActivity extends AppCompatActivity {
         CheckBox checkBox = (CheckBox)v;
         if(checkBox.isChecked()){
             facebookFlag = true;
+            sharePhotoButton.setVisibility(View.VISIBLE);
+            shareLinkButton.setVisibility(View.VISIBLE);
+            // prepare photo to be shared when the Share Photo button is pressed
+
+
         }
         if (!checkBox.isChecked()){
             facebookFlag = false;
+            sharePhotoButton.setVisibility(View.INVISIBLE);
+            shareLinkButton.setVisibility(View.INVISIBLE);
+
         }
     }
 
