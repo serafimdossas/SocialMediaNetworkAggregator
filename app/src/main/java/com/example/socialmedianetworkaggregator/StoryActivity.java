@@ -26,8 +26,6 @@ import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class StoryActivity extends AppCompatActivity {
 
-    EditText postText;
-
     Button postButton;
 
     CheckBox facebookCheck;
@@ -50,7 +48,6 @@ public class StoryActivity extends AppCompatActivity {
         instagramFlag = false;
 
 
-        postText = findViewById(R.id.editPostText);
         postButton = findViewById(R.id.postButton);
 
         facebookCheck = findViewById(R.id.facebookCheckBox);

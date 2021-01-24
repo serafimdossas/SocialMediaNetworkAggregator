@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.androidnetworking.utils.Utils;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import java.io.File;
@@ -40,8 +42,6 @@ import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class PostActivity extends AppCompatActivity {
 
-    EditText postText;
-
     Button postButton;
 
     CheckBox facebookCheck;
@@ -62,7 +62,6 @@ public class PostActivity extends AppCompatActivity {
         instagramFlag = false;
 
 
-        postText = findViewById(R.id.editPostText);
         postButton = findViewById(R.id.postButton);
 
         facebookCheck = findViewById(R.id.facebookCheckBox);
@@ -79,29 +78,24 @@ public class PostActivity extends AppCompatActivity {
                 if ( twitterFlag && facebookFlag && instagramFlag){
                     Toast.makeText(PostActivity.this,
                             "All 3 of them Checked", Toast.LENGTH_LONG).show();
-                    String consumerKey = "BS1hJK04QKLT61t6kWmo1UW4P";
-                    String consumerSecret = "r9Lp9mIogaVvEBpjBx2grYFEwSm8oKrHKszFaxQMwUtHh7GkAv";
-                    String accessToken = "1333402680191045635-DSYeSnH193NWPhV7wa6a5pzq6l0DXf";
-                    String accessSecret = "ncw5f3BNGfrreolcywPea6snwIMfX1xM3TLGHsYLq1bZt";
 
-                    ConfigurationBuilder cb = new ConfigurationBuilder();
-                    cb.setDebugEnabled(true)
-                            .setOAuthConsumerKey(consumerKey)
-                            .setOAuthConsumerSecret(consumerSecret)
-                            .setOAuthAccessToken(accessToken)
-                            .setOAuthAccessTokenSecret(accessSecret);
-                    TwitterFactory factory = new TwitterFactory(cb.build());
-                    final Twitter twitter = factory.getInstance();
-                    //twitter.updateStatus("Hello World!");
+
+
                     Thread thread = new Thread(new Runnable() {
 
                         @Override
                         public void run() {
-                            try {
-                                twitter.updateStatus(String.valueOf(postText.getText()));
-                            } catch (TwitterException e) {
-                                e.printStackTrace();
-                            }
+                            final TwitterSession session = TwitterCore.getInstance().getSessionManager()
+                                    .getActiveSession();
+
+                            StrictMode.VmPolicy.Builder photoBuilder = new StrictMode.VmPolicy.Builder();
+                            StrictMode.setVmPolicy(photoBuilder.build());
+                            Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                            TweetComposer.Builder builder = new TweetComposer.Builder(PostActivity.this)
+                                    .text("")
+                                    .image(imageUri);
+                            builder.show();
                         }
                     });
                     thread.start();
@@ -126,29 +120,23 @@ public class PostActivity extends AppCompatActivity {
                 else if (twitterFlag && facebookFlag){
                     Toast.makeText(PostActivity.this,
                             "Twitter and Facebook Checked", Toast.LENGTH_LONG).show();
-                    String consumerKey = "BS1hJK04QKLT61t6kWmo1UW4P";
-                    String consumerSecret = "r9Lp9mIogaVvEBpjBx2grYFEwSm8oKrHKszFaxQMwUtHh7GkAv";
-                    String accessToken = "1333402680191045635-DSYeSnH193NWPhV7wa6a5pzq6l0DXf";
-                    String accessSecret = "ncw5f3BNGfrreolcywPea6snwIMfX1xM3TLGHsYLq1bZt";
 
-                    ConfigurationBuilder cb = new ConfigurationBuilder();
-                    cb.setDebugEnabled(true)
-                            .setOAuthConsumerKey(consumerKey)
-                            .setOAuthConsumerSecret(consumerSecret)
-                            .setOAuthAccessToken(accessToken)
-                            .setOAuthAccessTokenSecret(accessSecret);
-                    TwitterFactory factory = new TwitterFactory(cb.build());
-                    final Twitter twitter = factory.getInstance();
-                    //twitter.updateStatus("Hello World!");
                     Thread thread = new Thread(new Runnable() {
 
                         @Override
                         public void run() {
-                            try {
-                                twitter.updateStatus(String.valueOf(postText.getText()));
-                            } catch (TwitterException e) {
-                                e.printStackTrace();
-                            }
+
+                            final TwitterSession session = TwitterCore.getInstance().getSessionManager()
+                                    .getActiveSession();
+
+                            StrictMode.VmPolicy.Builder photoBuilder = new StrictMode.VmPolicy.Builder();
+                            StrictMode.setVmPolicy(photoBuilder.build());
+                            Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                            TweetComposer.Builder builder = new TweetComposer.Builder(PostActivity.this)
+                                    .text("")
+                                    .image(imageUri);
+                            builder.show();
                         }
                     });
                     thread.start();
@@ -161,29 +149,23 @@ public class PostActivity extends AppCompatActivity {
                 else if (twitterFlag && instagramFlag){
                     Toast.makeText(PostActivity.this,
                             "Twitter and Instagram Checked", Toast.LENGTH_LONG).show();
-                    String consumerKey = "BS1hJK04QKLT61t6kWmo1UW4P";
-                    String consumerSecret = "r9Lp9mIogaVvEBpjBx2grYFEwSm8oKrHKszFaxQMwUtHh7GkAv";
-                    String accessToken = "1333402680191045635-DSYeSnH193NWPhV7wa6a5pzq6l0DXf";
-                    String accessSecret = "ncw5f3BNGfrreolcywPea6snwIMfX1xM3TLGHsYLq1bZt";
 
-                    ConfigurationBuilder cb = new ConfigurationBuilder();
-                    cb.setDebugEnabled(true)
-                            .setOAuthConsumerKey(consumerKey)
-                            .setOAuthConsumerSecret(consumerSecret)
-                            .setOAuthAccessToken(accessToken)
-                            .setOAuthAccessTokenSecret(accessSecret);
-                    TwitterFactory factory = new TwitterFactory(cb.build());
-                    final Twitter twitter = factory.getInstance();
-                    //twitter.updateStatus("Hello World!");
+
                     Thread thread = new Thread(new Runnable() {
 
                         @Override
                         public void run() {
-                            try {
-                                twitter.updateStatus(String.valueOf(postText.getText()));
-                            } catch (TwitterException e) {
-                                e.printStackTrace();
-                            }
+                            final TwitterSession session = TwitterCore.getInstance().getSessionManager()
+                                    .getActiveSession();
+
+                            StrictMode.VmPolicy.Builder photoBuilder = new StrictMode.VmPolicy.Builder();
+                            StrictMode.setVmPolicy(photoBuilder.build());
+                            Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                            TweetComposer.Builder builder = new TweetComposer.Builder(PostActivity.this)
+                                    .text("")
+                                    .image(imageUri);
+                            builder.show();
                         }
                     });
                     thread.start();
@@ -222,37 +204,21 @@ public class PostActivity extends AppCompatActivity {
                 else if (twitterFlag){
                     Toast.makeText(PostActivity.this,
                             "Only Twitter Checked", Toast.LENGTH_LONG).show();
-                    String consumerKey = "BS1hJK04QKLT61t6kWmo1UW4P";
-                    String consumerSecret = "r9Lp9mIogaVvEBpjBx2grYFEwSm8oKrHKszFaxQMwUtHh7GkAv";
-                    String accessToken = "1333402680191045635-DSYeSnH193NWPhV7wa6a5pzq6l0DXf";
-                    String accessSecret = "ncw5f3BNGfrreolcywPea6snwIMfX1xM3TLGHsYLq1bZt";
 
-                    ConfigurationBuilder cb = new ConfigurationBuilder();
-                    cb.setDebugEnabled(true)
-                            .setOAuthConsumerKey(consumerKey)
-                            .setOAuthConsumerSecret(consumerSecret)
-                            .setOAuthAccessToken(accessToken)
-                            .setOAuthAccessTokenSecret(accessSecret);
-                    TwitterFactory factory = new TwitterFactory(cb.build());
-                    final Twitter twitter = factory.getInstance();
-                    //twitter.updateStatus("Hello World!");
-                    Thread thread = new Thread(new Runnable() {
 
-                        @Override
-                        public void run() {
-                            try {
-                                twitter.updateStatus(String.valueOf(postText.getText()));
-                            } catch (TwitterException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                    thread.start();
-                    try {
-                        thread.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    final TwitterSession session = TwitterCore.getInstance().getSessionManager()
+                            .getActiveSession();
+
+                    StrictMode.VmPolicy.Builder photoBuilder = new StrictMode.VmPolicy.Builder();
+                    StrictMode.setVmPolicy(photoBuilder.build());
+                    Uri imageUri = Uri.parse("file:///storage/emulated/0/Download/download.png");
+
+                    TweetComposer.Builder builder = new TweetComposer.Builder(PostActivity.this)
+                            .text("")
+                            .image(imageUri);
+                    builder.show();
+
+
                 }
                 else if (facebookFlag){
                     Toast.makeText(PostActivity.this,
