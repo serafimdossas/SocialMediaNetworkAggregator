@@ -2,6 +2,8 @@
     <string name="app_name">SocialMediaNetworkAggregator</string>
     <string name="com.twitter.sdk.android.TWITTER_CONSUMER_KEY">BS1hJK04QKLT61t6kWmo1UW4P</string>
     <string name="com.twitter.sdk.android.TWITTER_CONSUMER_SECRET">r9Lp9mIogaVvEBpjBx2grYFEwSm8oKrHKszFaxQMwUtHh7GkAv</string>
+    <string name="com.twitter.sdk.android.TWITTER_ACCESS_TOKEN">1333402680191045635-DSYeSnH193NWPhV7wa6a5pzq6l0DXf</string>
+    <string name="com.twitter.sdk.android.TWITTER_ACCESS_SECRET">ncw5f3BNGfrreolcywPea6snwIMfX1xM3TLGHsYLq1bZt</string>
     <string name="facebook_app_id">167185451780758</string>
     <string name="fb_login_protocol_scheme">fb167185451780758</string>
 </resources>

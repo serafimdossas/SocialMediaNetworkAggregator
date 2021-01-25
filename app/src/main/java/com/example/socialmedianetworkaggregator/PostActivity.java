@@ -46,8 +46,6 @@ import twitter4j.auth.OAuthAuthorization;
 import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.conf.ConfigurationContext;
 
-import static com.example.socialmedianetworkaggregator.TrendingHashtagsActivity.CONSUMER_KEY;
-import static com.example.socialmedianetworkaggregator.TrendingHashtagsActivity.CONSUMER_SECRET;
 import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class PostActivity extends AppCompatActivity {

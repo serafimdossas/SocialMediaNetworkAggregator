@@ -22,11 +22,7 @@ import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class TrendingHashtagsActivity extends AppCompatActivity {
 
-    public static final String CONSUMER_KEY = "BS1hJK04QKLT61t6kWmo1UW4P";
-    public static final String CONSUMER_SECRET = "r9Lp9mIogaVvEBpjBx2grYFEwSm8oKrHKszFaxQMwUtHh7GkAv";
-
-    public static final String TAG = "Trends";
-
+    private static final String TAG = "Trends";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +35,10 @@ public class TrendingHashtagsActivity extends AppCompatActivity {
         final Trends[] trends = new Trends[1];
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true).setOAuthConsumerKey(CONSUMER_KEY)
-                .setOAuthConsumerSecret(CONSUMER_SECRET)
-                .setOAuthAccessToken("1333402680191045635-DSYeSnH193NWPhV7wa6a5pzq6l0DXf")
-                .setOAuthAccessTokenSecret("ncw5f3BNGfrreolcywPea6snwIMfX1xM3TLGHsYLq1bZt");
+        cb.setDebugEnabled(true).setOAuthConsumerKey(getResources().getString(R.string.com_twitter_sdk_android_TWITTER_CONSUMER_KEY))
+                .setOAuthConsumerSecret(getResources().getString(R.string.com_twitter_sdk_android_TWITTER_CONSUMER_SECRET))
+                .setOAuthAccessToken(getResources().getString(R.string.com_twitter_sdk_android_TWITTER_ACCESS_TOKEN))
+                .setOAuthAccessTokenSecret(getResources().getString(R.string.com_twitter_sdk_android_TWITTER_ACCESS_SECRET));
 
         TwitterFactory tf = new TwitterFactory(cb.build());
         final Twitter twitter = tf.getInstance();
